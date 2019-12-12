@@ -86,7 +86,7 @@ class EnterPinFragment : BaseFragment() {
         })
 
         viewModel.navigateToEnterAmount.observe(this, Observer {
-            val direction = EnterPinFragmentDirections.actionEnterPinFragmentToTransactionFragment(it)
+            val direction = EnterPinFragmentDirections.actionEnterPinFragmentToPayFragment()
             findNavController().navigate(direction)
         })
 

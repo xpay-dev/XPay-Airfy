@@ -16,9 +16,14 @@ class AmountViewModel(context: Context) : BaseViewModel() {
     //GG7C-BY7B-JF5A-HNN7
     val amountStr : MutableLiveData<String> = MutableLiveData()
 
+    val navigateToEnterPin: MutableLiveData<Boolean> = MutableLiveData()
+    val navigateToActivation: MutableLiveData<Boolean> = MutableLiveData()
+    val sharedPref = SharedPrefStorage(context)
     init {
         displayAmount.value = "0.00"
         POS_REQUEST = PosWsRequest(context)
+        isActivated()
+        isPinEntered()
     }
 
     private fun onClickOk(v: View) {
@@ -29,15 +34,22 @@ class AmountViewModel(context: Context) : BaseViewModel() {
         if (amountStr.value!!.isEmpty()) return
         transaction.amount = ( amountStr.value!!.toInt()/100.0)
         if (IS_TRANSACTION_OFFLINE){
-            val direction = PayAmountFragmentDirections.actionPayAmountFragmentToProcessTransactionFragment(amountStr.value!!)
-            v.findNavController().navigate(direction)
+//            val direction = PayAmountFragmentDirections.actionPayAmountFragmentToProcessTransactionFragment(amountStr.value!!)
+//            v.findNavController().navigate(direction)
         } else {
-            val direction = EnterAmountFragmentDirections.actionEnterAmountFragmentToProcessTranactionFragment(amountStr.value!!)
-            v.findNavController().navigate(direction)
+//            val direction = EnterAmountFragmentDirections.actionEnterAmountFragmentToProcessTranactionFragment(amountStr.value!!)
+//            v.findNavController().navigate(direction)
         }
 
     }
 
+    private fun isActivated(){
+        navigateToActivation.value = !sharedPref.isEmpty(ACTIVATION_KEY)
+    }
+
+    private  fun isPinEntered(){
+        navigateToEnterPin.value = !sharedPref.isEmpty(PIN_LOGIN)
+    }
 
     private fun isDeviceAvailable(context: Context) : Boolean{
         return !SharedPrefStorage(context!!).isEmpty(WISE_PAD) || !SharedPrefStorage(context!!).isEmpty(WISE_POS)

@@ -87,7 +87,7 @@ abstract  class BaseActivity : AppCompatActivity() ,BaseFragment.CallBack{
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        shouldSetToFullScreen()
+       // shouldSetToFullScreen()
     }
 
     //@Override

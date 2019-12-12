@@ -3,16 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_sub"
-    app:startDestination="@id/actionTransaction">
+    app:startDestination="@id/payFragment">
 
     <fragment
-        android:id="@+id/actionTransaction"
+        android:id="@+id/payFragment"
         android:name="com.xpayworld.payment.ui.transaction.enterAmount.PayAmountFragment"
         android:label="Transaction"
-        tools:layout="@layout/fragment_pay_amount" />
+        tools:layout="@layout/fragment_pay_amount" >
+        <action
+            android:id="@+id/action_payFragment_to_activationFragment"
+            app:destination="@id/activationFragment" />
+        <action
+            android:id="@+id/action_payFragment_to_enterPinFragment"
+            app:destination="@id/enterPinFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/actionOfflineTransaction"
+        android:id="@+id/offlineFragment"
         android:name="com.xpayworld.payment.ui.history.OfflineTransactionFragment"
         android:label="History"
         tools:layout="@layout/fragment_transaction_offline"/>
+    <fragment
+        android:id="@+id/enterPinFragment"
+        android:name="com.xpayworld.payment.ui.enterPin.EnterPinFragment"
+        android:label="Enter Pin"
+        tools:layout="@layout/fragment_enter_pin" >
+        <action
+            android:id="@+id/action_enterPinFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activationFragment"
+        android:name="com.xpayworld.payment.ui.activation.ActivationFragment"
+        android:label="fragment_activation_code"
+        tools:layout="@layout/fragment_activation_code" >
+        <action
+            android:id="@+id/action_activationFragment_to_enterPinFragment"
+            app:destination="@id/enterPinFragment" />
+    </fragment>
 </navigation>

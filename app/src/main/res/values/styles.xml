@@ -9,6 +9,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:fontFamily">@font/corsa_grotesk_regular</item>
         <item name="android:actionMenuTextAppearance">@style/MyMenuTextAppearance</item>
     </style>
 

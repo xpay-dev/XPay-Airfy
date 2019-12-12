@@ -8,6 +8,5 @@
             android:orderInCategory="100"
             android:iconTint="@android:color/white"
             android:title="Done"
-            
             app:showAsAction="always" />
 </menu>

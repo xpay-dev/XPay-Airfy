@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.xpayworld.payment.R
 import com.xpayworld.payment.databinding.FragmentEnterAmountBinding
 import com.xpayworld.payment.databinding.FragmentPayAmountBinding
@@ -53,6 +54,16 @@ class PayAmountFragment : BaseFragment(){
         viewModel.deviceError.observe(this , Observer { msg ->
             showError(msg.first,msg.second)
         })
+
+        viewModel.navigateToEnterPin.observe(this , Observer {
+            val directions = PayAmountFragmentDirections.actionPayFragmentToEnterPinFragment()
+            if (it) findNavController().navigate(directions)
+        })
+
+        viewModel.navigateToActivation.observe(this, Observer {
+            val directions = PayAmountFragmentDirections.actionPayFragmentToActivationFragment()
+            if (it) findNavController().navigate(directions)
+        })
     }
 
 
@@ -65,12 +76,12 @@ class PayAmountFragment : BaseFragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.actionOffline -> {
-                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToOfflineTransactionFragment()
-                view?.findNavController()?.navigate(direction)
+//                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToOfflineTransactionFragment()
+//                view?.findNavController()?.navigate(direction)
             }
             R.id.actionDevice ->{
-                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToPreferenceFragment()
-                view?.findNavController()?.navigate(direction)
+//                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToPreferenceFragment()
+//                view?.findNavController()?.navigate(direction)
             }
         }
         return false

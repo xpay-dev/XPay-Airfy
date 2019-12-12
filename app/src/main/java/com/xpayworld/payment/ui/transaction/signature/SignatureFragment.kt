@@ -13,13 +13,12 @@ import androidx.navigation.findNavController
 import com.google.gson.GsonBuilder
 import com.xpayworld.payment.databinding.FragmentSignatureBinding
 import com.xpayworld.payment.ui.base.kt.BaseFragment
+import com.xpayworld.payment.ui.dashboard.DashboardOfflineActivity
 import com.xpayworld.payment.ui.transaction.processTransaction.ARG_AMOUNT
 import com.xpayworld.payment.util.*
-import com.xpayworld.sdk.XPAY_REQUEST
 import com.xpayworld.sdk.XPAY_RESPONSE
 import kotlinx.android.synthetic.main.fragment_signature.*
 import java.io.ByteArrayOutputStream
-import com.xpayworld.payment.ui.dashboard.DashboardActivity as DashboardActivity1
 
 
 class SignatureFragment : BaseFragment() {
@@ -72,7 +71,7 @@ class SignatureFragment : BaseFragment() {
             lblSignature.visibility = View.VISIBLE
         }
 
-        (activity as DashboardActivity1).UserInteraction.observe(this , Observer {
+        (activity as DashboardOfflineActivity).UserInteraction.observe(this , Observer {
             lblSignature.visibility = View.INVISIBLE
         })
     }

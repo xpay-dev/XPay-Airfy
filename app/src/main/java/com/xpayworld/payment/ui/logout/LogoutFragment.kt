@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.xpayworld.payment.R
 import com.xpayworld.payment.databinding.FragmentLogoutBinding
-import com.xpayworld.payment.databinding.FragmentReportsBinding
 import com.xpayworld.payment.ui.base.kt.BaseFragment
 
 class LogoutFragment  : BaseFragment(){

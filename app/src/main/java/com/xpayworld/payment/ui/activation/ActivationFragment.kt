@@ -129,7 +129,7 @@ class ActivationFragment : BaseFragment() {
         })
 
         viewModel.navigateToEnterPin.observe(this , Observer {
-            val direction = ActivationFragmentDirections.actionActiviationFragmentToEnterPinFragment()
+            val direction = ActivationFragmentDirections.actionActivationFragmentToEnterPinFragment()
             findNavController().navigate(direction)
         })
 

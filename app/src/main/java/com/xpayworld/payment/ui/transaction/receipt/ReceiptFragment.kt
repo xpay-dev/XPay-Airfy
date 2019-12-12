@@ -2,21 +2,17 @@ package com.xpayworld.payment.ui.transaction.receipt
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
-import androidx.activity.addCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.xpayworld.payment.R
-import com.xpayworld.payment.ui.base.kt.BaseFragment
+
 import kotlinx.android.synthetic.main.fragment_receipt.*
 import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.xpayworld.payment.databinding.FragmentReceiptBinding
 import com.xpayworld.payment.network.PosWsResponse
 import com.xpayworld.payment.network.TransactionResponse
-import com.xpayworld.payment.ui.dashboard.DashboardActivity
 import com.xpayworld.payment.ui.dashboard.DrawerLocker
 import com.xpayworld.payment.ui.transaction.processTransaction.BaseDeviceFragment
 import com.xpayworld.payment.ui.transaction.receipt.ReceiptFragmentArgs.fromBundle
