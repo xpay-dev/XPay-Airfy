@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.activation.ActivationFragment">
+
+    <!--<data>-->
+        <!--<variable-->
+            <!--name="model"-->
+            <!--accountType="com.xpayworld.payment.ui.activation.ActivationViewModel" />-->
+    <!--</data>-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edtext4"
+            android:layout_width="@dimen/ed_width_size"
+            android:layout_height="50dp"
+            android:background="@drawable/tv_activation"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            android:ems="10"
+
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:maxLength="4"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/edtext3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/edtext3"
+            app:layout_constraintTop_toTopOf="@+id/edtext3" />
+
+        <EditText
+            android:id="@+id/edtext2"
+            android:layout_width="@dimen/ed_width_size"
+            android:layout_height="50dp"
+            android:background="@drawable/tv_activation"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            android:ems="10"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:maxLength="4"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/edtext1"
+            app:layout_constraintEnd_toStartOf="@+id/edtext3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/edtext1"
+            app:layout_constraintTop_toTopOf="@+id/edtext1" />
+
+        <EditText
+            android:id="@+id/edtext3"
+            android:layout_width="@dimen/ed_width_size"
+            android:layout_height="50dp"
+            android:background="@drawable/tv_activation"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            android:ems="10"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:maxLength="4"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/edtext2"
+            app:layout_constraintEnd_toStartOf="@+id/edtext4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/edtext2"
+            app:layout_constraintTop_toTopOf="@+id/edtext2" />
+
+        <EditText
+            android:id="@+id/edtext1"
+            android:layout_width="@dimen/ed_width_size"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/tv_activation"
+            android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            android:ems="10"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:maxLength="4"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/edtext2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" >
+            <requestFocus/>
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Please enter the activation code to start using the device"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_all"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnActivate"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:background="@drawable/btn_primary_black_pressed"
+            android:enabled="false"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Activate"
+            android:textAllCaps="false"
+
+            android:textColor="@color/btn_text_white_color"
+            android:textSize="@dimen/btn_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+        <!--android:onClick="@{() -> model.onClickActivate()}"-->
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Having trouble? Help"
+            android:textSize="@dimen/text_size_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnActivate" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="By Activating , you agree to our terms of service and public policy"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size_all"
+            app:layout_constraintBottom_toBottomOf="@+id/imgBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.55" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <TextView
+            android:id="@+id/tvErrorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/red"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Invalid Activation Code"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtext1" />
+
+        <TextView
+            android:id="@+id/tvErrorMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:textColor="@color/red"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Please enter the correct activation that was sent into your email"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorTitle" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/errorGroup"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tvErrorTitle,tvErrorMessage"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

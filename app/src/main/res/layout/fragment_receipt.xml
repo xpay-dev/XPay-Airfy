@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.transaction.receipt.ReceiptFragment">
+
+    <data>
+        <variable
+            name="txns"
+            type="com.xpayworld.payment.network.TransactionResponse" />
+        <variable
+            name="response"
+            type="com.xpayworld.payment.network.PosWsResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnDone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView12">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clReceipt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/print_preview_body"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/lblStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Transaction Status"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAuthNumber" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/lblMerchantName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="ABC MERCHANT"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_name"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/lblMerchantAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Makati , Philippines"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/lblMerchantName"
+                    app:layout_constraintStart_toStartOf="@+id/lblMerchantName"
+                    app:layout_constraintTop_toBottomOf="@+id/lblMerchantName" />
+
+                <TextView
+                    android:id="@+id/lblDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:gravity="center_horizontal"
+                    android:text="Date"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lblMerchantAddress" />
+
+                <TextView
+                    android:id="@+id/dividerDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblDate"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblDate" />
+
+                <TextView
+                    android:id="@+id/dividerTerminalId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblTerminalId"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblTerminalId" />
+
+                <TextView
+                    android:id="@+id/dividerMerchantId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblMerchantId"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblMerchantId" />
+
+                <TextView
+                    android:id="@+id/dividerBatchNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblBatchNumber"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblBatchNumber" />
+
+                <TextView
+                    android:id="@+id/dividerInvoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblInvoiceNumber"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblInvoiceNumber" />
+
+                <TextView
+                    android:id="@+id/dividerCardNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblCardNumber"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblCardNumber" />
+
+                <TextView
+                    android:id="@+id/dividerCardType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblCardType"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblCardType" />
+
+                <TextView
+                    android:id="@+id/dividerAuthNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblAuthNumber"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblAuthNumber" />
+
+                <TextView
+                    android:id="@+id/dividerStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/lblStatus"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toTopOf="@+id/lblStatus" />
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.timestamp}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblDate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerDate" />
+
+                <TextView
+                    android:id="@+id/tvMerchantId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.merchantId}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblMerchantId"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerMerchantId" />
+
+                <TextView
+                    android:id="@+id/tvTerminalId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.terminalId}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblTerminalId"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerTerminalId" />
+
+                <TextView
+                    android:id="@+id/tvBatchNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.batchNumber}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblBatchNumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerBatchNum" />
+
+                <TextView
+                    android:id="@+id/tvInvoiceNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.transNumber}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblInvoiceNumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerInvoice" />
+
+                <TextView
+                    android:id="@+id/tvCardNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{txns.cardNumber}"
+                    android:textSize="12sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblCardNumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerCardNumber" />
+
+                <TextView
+                    android:id="@+id/tvCardType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.cardType}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblCardType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerCardType" />
+
+                <TextView
+                    android:id="@+id/tvAuthNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.authNumber}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblAuthNumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerDate" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{response.status}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblStatus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerDate" />
+
+                <TextView
+                    android:id="@+id/tvAuthNumber2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{txns.currency + ' ' + txns.total}"
+                    android:textAlignment="textEnd"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/lblAuthNumber2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/dividerDate" />
+
+                <TextView
+                    android:id="@+id/lblMerchantId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Merchant Id"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+                <TextView
+                    android:id="@+id/lblTerminalId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Terminal Id"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMerchantId" />
+
+                <TextView
+                    android:id="@+id/lblBatchNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Batch Number"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTerminalId" />
+
+                <TextView
+                    android:id="@+id/lblInvoiceNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Invoice Number"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBatchNumber" />
+
+                <TextView
+                    android:id="@+id/lblCardNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Card Number"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/lblSale" />
+
+                <TextView
+                    android:id="@+id/lblCardType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Card Type"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCardNumber" />
+
+                <TextView
+                    android:id="@+id/lblAuthNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="Auth Number"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCardType" />
+
+                <TextView
+                    android:id="@+id/lblAuthNumber2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="AMOUNT:"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_details"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/lblDate"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAuthNumber" />
+
+                <TextView
+                    android:id="@+id/lblSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/corsa_grotesk_regular"
+                    android:text="@{txns.transType}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_merchant_name"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/dividerInvoice"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
+                    app:layout_constraintTop_toBottomOf="@+id/tvInvoiceNumber" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--<View-->
+            <!--android:id="@+id/vwReceipt"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="522dp"-->
+            <!--android:layout_marginStart="32dp"-->
+            <!--android:layout_marginLeft="32dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:layout_marginEnd="32dp"-->
+            <!--android:layout_marginRight="32dp"-->
+            <!--android:background="@android:color/white"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="0.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintVertical_bias="0.083">-->
+        <!--</View>-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView31"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="32dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="ABC MERCHANT"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_label_all"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/vwReceipt" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView37"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Merchant Id"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView32" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView40"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Terminal Id"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView37" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView43"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Batch Number"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView40" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView46"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Invoice Number"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView43" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView33"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView32"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView41"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView40"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView44"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView43"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView47"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView46"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView51"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView50"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView55"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView54"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView58"-->
+            <!--android:layout_width="3dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text=":"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView57"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView34"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="2017-03-03 "-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView32"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView33" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView39"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView37"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView42"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView40"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView45"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView43"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView48"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView46"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView53"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView50"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView56"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView54"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView59"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="1234567"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView57"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.1"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView62"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="PHP 1,250.00"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintBaseline_toBaselineOf="@+id/textView60"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/vwReceipt"-->
+            <!--app:layout_constraintHorizontal_bias="0.8"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView60" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView35"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Makati , Philippines"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/textView31"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView31"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView31" />-->
+
+        <!--<androidx.constraintlayout.widget.Barrier-->
+            <!--android:id="@+id/barrier"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:barrierDirection="top" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView49"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="32dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:text="Sale"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/guideline8"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView47" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView50"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Card Number"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView49" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView54"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Card Type"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView50" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView57"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Auth Number"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView54" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView60"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="32dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:fontFamily="@font/corsa_grotesk_regular"-->
+            <!--android:text="Amount"-->
+            <!--android:textColor="@android:color/black"-->
+            <!--android:textSize="@dimen/text_small"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView32"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView57" />-->
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_primary_black_pressed"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Print"
+            android:textAllCaps="false"
+            android:textColor="@color/btn_text_white_color"
+            android:textSize="@dimen/btn_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/print_preview_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgBackground" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

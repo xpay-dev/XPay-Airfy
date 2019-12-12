@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xpayworld.payment.ui.dashboard.DashboardActivity">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/transactionFragment"
+            android:orderInCategory="100"
+            android:title="Transaction"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/historyFragment"
+            android:orderInCategory="100"
+            android:title="Transaction History"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/offlineTransactionFragment"
+            android:orderInCategory="100"
+            android:title="Transaction Offline"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/preferenceFragment"
+            android:orderInCategory="100"
+            android:title="Preference"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/logoutFragment"
+            android:orderInCategory="100"
+            android:title="Logout"
+            app:showAsAction="never" />
+    </group>
+</menu>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.enterPin.EnterPinFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/view_number_pad"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img1"></include>
+
+        <ImageView
+            android:id="@+id/img4"
+            android:layout_width="@dimen/img_pin_code"
+            android:layout_height="@dimen/img_pin_code"
+            android:layout_marginEnd="80dp"
+            android:layout_marginRight="80dp"
+            android:background="@drawable/ic_pin_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/img3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img3"
+            app:layout_constraintTop_toTopOf="@+id/img3"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <Button
+            android:id="@+id/btn_forget_pin"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_primary_black_pressed"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Forget Pin"
+            android:textAllCaps="false"
+            android:textColor="@color/btn_text_white_color"
+            android:textSize="@dimen/btn_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/corsa_grotesk_regular"
+            android:text="Enter Your Pin Code"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="@dimen/img_pin_code"
+            android:layout_height="@dimen/img_pin_code"
+            android:layout_marginStart="3dp"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/ic_pin_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/img1"
+            app:layout_constraintEnd_toStartOf="@+id/img3"
+            app:layout_constraintStart_toEndOf="@+id/img1"
+            app:layout_constraintTop_toTopOf="@+id/img1"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="@dimen/img_pin_code"
+            android:layout_height="@dimen/img_pin_code"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/ic_pin_circle"
+            app:layout_constraintBottom_toBottomOf="@+id/img2"
+            app:layout_constraintEnd_toStartOf="@+id/img4"
+            app:layout_constraintStart_toEndOf="@+id/img2"
+            app:layout_constraintTop_toTopOf="@+id/img2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="@dimen/img_pin_code"
+            android:layout_height="@dimen/img_pin_code"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_pin_circle"
+            app:layout_constraintEnd_toStartOf="@+id/img2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="270dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/xpay_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

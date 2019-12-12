@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/btnOk"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:src="@drawable/ic_check"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn0"
+        app:layout_constraintTop_toTopOf="@+id/btn0" />
+
+    <ImageButton
+        android:id="@+id/btnClear"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:src="@drawable/ic_clear"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn0"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn7" />
+
+    <Button
+        android:id="@+id/btn1"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="1"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toTopOf="@+id/btn4"
+        app:layout_constraintEnd_toStartOf="@+id/btn2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <Button
+        android:id="@+id/btn2"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="2"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn1"
+        app:layout_constraintEnd_toStartOf="@+id/btn3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn1"
+        app:layout_constraintTop_toTopOf="@+id/btn1" />
+
+    <Button
+        android:id="@+id/btn3"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="3"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn2"
+        app:layout_constraintTop_toTopOf="@+id/btn2" />
+
+    <Button
+        android:id="@+id/btn4"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="4"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toTopOf="@+id/btn7"
+        app:layout_constraintEnd_toStartOf="@+id/btn5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+
+    <Button
+        android:id="@+id/btn5"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="5"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn4"
+        app:layout_constraintEnd_toStartOf="@+id/btn6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn4"
+        app:layout_constraintTop_toTopOf="@+id/btn4" />
+
+    <Button
+        android:id="@+id/btn6"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="6"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn5"
+        app:layout_constraintTop_toTopOf="@+id/btn5" />
+
+    <Button
+        android:id="@+id/btn7"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="7"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toTopOf="@+id/btnClear"
+        app:layout_constraintEnd_toStartOf="@+id/btn8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn4" />
+
+    <Button
+        android:id="@+id/btn8"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="8"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn7"
+        app:layout_constraintEnd_toStartOf="@+id/btn9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn7"
+        app:layout_constraintTop_toTopOf="@+id/btn7" />
+
+    <Button
+        android:id="@+id/btn9"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="9"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btn8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn8"
+        app:layout_constraintTop_toTopOf="@+id/btn8" />
+
+    <Button
+        android:id="@+id/btn0"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/numpad_size"
+        android:layout_height="@dimen/numpad_size"
+        android:background="@drawable/btn_numpad_pressed"
+        android:fontFamily="@font/corsa_grotesk_regular"
+        android:text="0"
+        android:textColor="@color/btn_text_black_color"
+        android:textSize="@dimen/text_numpad"
+        app:layout_constraintBottom_toBottomOf="@+id/btnClear"
+        app:layout_constraintEnd_toStartOf="@+id/btnOk"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnClear"
+        app:layout_constraintTop_toTopOf="@+id/btnClear" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

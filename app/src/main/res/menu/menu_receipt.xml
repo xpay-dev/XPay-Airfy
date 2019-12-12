@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xpayworld.payment.ui.dashboard.DashboardActivity">
+
+        <item
+            android:id="@+id/receipt_item_done"
+            android:orderInCategory="100"
+            android:iconTint="@android:color/white"
+            android:title="Done"
+            
+            app:showAsAction="always" />
+</menu>
