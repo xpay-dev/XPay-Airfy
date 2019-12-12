@@ -90,7 +90,6 @@ class ActivationViewModel(private val context: Context) : BaseViewModel() {
                                 sharedPref.writeMessage(ACCOUNT_ID, result.body()!!.result.accountId!!)
                                 sharedPref.writeMessage(MOBILE_APP_ID, result.body()!!.result.mobileAppId!!)
                                 sharedPref.writeMessage(ACTIVATION_KEY, code)
-
                                 navigateToEnterPin.value = ""
                             }
                         },

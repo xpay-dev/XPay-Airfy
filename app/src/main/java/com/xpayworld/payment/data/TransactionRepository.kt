@@ -6,7 +6,7 @@ class TransactionRepository private constructor(
 
     fun getTransaction() = transDao.getTransaction()
 
-    suspend fun createTransaction(trans : Transaction){
+     fun createTransaction(trans : Transaction){
         transDao.insertTransaction(trans)
     }
 
@@ -24,6 +24,10 @@ class TransactionRepository private constructor(
 
     fun  deleteTranscation(orderId: String){
         transDao.deleteTransaction(orderId= orderId)
+    }
+
+    fun searchTransaction(orderId: String): List<Transaction>{
+       return transDao.searchTransaction(orderId)
     }
 
     companion object{

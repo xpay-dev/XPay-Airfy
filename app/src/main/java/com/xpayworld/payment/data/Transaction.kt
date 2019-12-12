@@ -1,12 +1,15 @@
 package com.xpayworld.payment.data
 
 import androidx.room.*
+import com.google.gson.annotations.SerializedName
+import retrofit2.http.Field
 
 
 @Entity
  data class Transaction (
         @ColumnInfo(name = "amount")
         var amount: Double = 0.0,
+
         @ColumnInfo(name = "trans_date")
         var timestamp: Long = 0,
         var action: Int = 0,

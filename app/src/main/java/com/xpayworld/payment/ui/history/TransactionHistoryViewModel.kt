@@ -191,7 +191,9 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                         callBack?.invoke(false)
                         return@subscribe
                     }
-                    callBack?.invoke(true)
+                    val body = if ( result.body()?.resultEmv != null) result.body()?.resultEmv else  result.body()?.resultSwipe
+                    val hasError = body?.result?.errNumber != 0.0
+                    callBack?.invoke(!hasError)
                     subscription.dispose()
                 }, {
                     callBack?.invoke(false)
@@ -211,7 +213,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                     txnDao.updateTransaction(true,txn.orderId)
                     val trans = Transaction()
 
-                    trans.card = transaction.card
+                    trans.card = txn.card
 
                     trans.orderId = txn.orderId
                     trans.isOffline = txn.isOffline
@@ -230,7 +232,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                     trans.device = txn.device
                     trans.deviceModelVersion = txn.deviceModelVersion
 
-                    transaction  = trans
+                    transaction = trans
 
                     callTransactionAPI(callBack = {isSuccess ->
                         if (!isSuccess) {

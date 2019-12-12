@@ -62,13 +62,12 @@ class EnterPinFragment : BaseFragment() {
             viewModel.callEnterPinAPI()
         }
 
-        shouldCheckActivationKey()
           //InjectorUtil.getTransactionRepository(requireContext()).deleteAllTransaction()
         viewModel.pinCode
                 .observe(this, Observer {
                     shouldUpdateCodeImage(it)
                 })
-        viewModel.toolbarVisibility.observe(this, Observer { (activity as ToolbarDelegate).showToolbar(it) })
+
         viewModel.loadingVisibility.observe(this, Observer {
             if (it) showProgress() else hideProgress()
         })
@@ -86,18 +85,12 @@ class EnterPinFragment : BaseFragment() {
         })
 
         viewModel.navigateToEnterAmount.observe(this, Observer {
-            val direction = EnterPinFragmentDirections.actionEnterPinFragmentToPayFragment()
+            val direction = EnterPinFragmentDirections.navigateToPayFragment()
             findNavController().navigate(direction)
         })
 
     }
 
-    private fun shouldCheckActivationKey() {
-        val sharedPref = context?.let { it -> SharedPrefStorage(it) }
-        if (sharedPref!!.isEmpty(ACTIVATION_KEY)) {
-            findNavController().navigate(R.id.activationFragment)
-        }
-    }
 
     private fun shouldUpdateCodeImage(pinCode: String) {
         for (x in 0 until pinCodeImgArr.size) {

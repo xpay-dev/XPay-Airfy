@@ -23,6 +23,7 @@ import com.xpayworld.payment.data.CardData
 import com.xpayworld.payment.network.transaction.PaymentType
 import com.xpayworld.payment.network.transaction.TransactionPurchase
 import com.xpayworld.payment.ui.base.kt.BaseFragment
+import com.xpayworld.payment.ui.dashboard.DashboardOfflineActivity
 import com.xpayworld.payment.ui.preference.DeviceAdapter
 import com.xpayworld.payment.ui.transaction.receipt.ReceiptFragment
 import com.xpayworld.payment.util.*
@@ -31,7 +32,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-const val ARG_AMOUNT = "amount"
+const val ARG_AMOUNT = "args_amount"
+const val ARG_CURRENCY = "args_currency"
 abstract class BaseDeviceFragment : BaseFragment()  {
 
     companion object {
@@ -65,14 +67,17 @@ abstract class BaseDeviceFragment : BaseFragment()  {
     val onlineProcessResult : MutableLiveData<String> = MutableLiveData()
     val onReceiptData: MutableLiveData<ByteArray> = MutableLiveData()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref = SharedPrefStorage(requireContext())
 
         arguments?.let {
             amountStr = it.getString(ARG_AMOUNT).toString()
         }
 
-        navHostFragment = activity!!.supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+        navHostFragment = activity?.supportFragmentManager?.findFragmentById(R.id.mainNavigationFragment)!!
         currentFragment = navHostFragment.childFragmentManager.fragments[0]
 
         listener = MyBBdeviceControllerListener()
@@ -80,9 +85,9 @@ abstract class BaseDeviceFragment : BaseFragment()  {
         setDebugLogEnabled(true)
 
         if (currentFragment is ProcessTransactionFragment){
-            if (!SharedPrefStorage(requireActivity()).isEmpty(WISE_PAD) && isBluetoothPermissionGranted()){
+            if (!sharedPref.isEmpty(WISE_PAD) && isBluetoothPermissionGranted()){
                 startBluetoothConnection()
-            } else if (!SharedPrefStorage(requireActivity()).isEmpty(WISE_POS)){
+            } else if (!sharedPref.isEmpty(WISE_POS)){
                 startTransaction()
             } else {
                 checkBluetoothPermission.value = false
@@ -91,6 +96,10 @@ abstract class BaseDeviceFragment : BaseFragment()  {
         else if (currentFragment is ReceiptFragment){
             bbDeviceController?.startSerial()
         }
+
+        toolbarTitle.observe(this , androidx.lifecycle.Observer {
+            (activity as DashboardOfflineActivity).toolbarTitle.value = it
+        })
 
     }
 
@@ -564,22 +573,22 @@ abstract class BaseDeviceFragment : BaseFragment()  {
         override fun onWaitingForCard(cardMode: BBDeviceController.CheckCardMode?) {
             cancelTitle.value = "Cancel"
             when (cardMode) {
-                BBDeviceController.CheckCardMode.INSERT -> {
+                 CheckCardMode.INSERT -> {
                     toolbarTitle.value = "Please insert card"
                 }
-                BBDeviceController.CheckCardMode.SWIPE -> {
+                 CheckCardMode.SWIPE -> {
                     toolbarTitle.value = "Please swipe card"
                 }
-                BBDeviceController.CheckCardMode.SWIPE_OR_INSERT -> {
+                 CheckCardMode.SWIPE_OR_INSERT -> {
                     toolbarTitle.value = "Please swipe/insert card"
                 }
-                BBDeviceController.CheckCardMode.SWIPE_OR_TAP -> {
+                 CheckCardMode.SWIPE_OR_TAP -> {
                     toolbarTitle.value = "Please swipe/tap card"
                 }
-                BBDeviceController.CheckCardMode.INSERT_OR_TAP -> {
+                CheckCardMode.INSERT_OR_TAP -> {
                     toolbarTitle.value = "Please inert/tap card"
                 }
-                BBDeviceController.CheckCardMode.SWIPE_OR_INSERT_OR_TAP -> {
+                 CheckCardMode.SWIPE_OR_INSERT_OR_TAP -> {
                     toolbarTitle.value = "Please swipe/insert/tap card"
                 }
             }
@@ -619,7 +628,7 @@ abstract class BaseDeviceFragment : BaseFragment()  {
 
         override fun onRequestPinEntry(pinEntrySource: BBDeviceController.PinEntrySource?) {
 
-            if (pinEntrySource == BBDeviceController.PinEntrySource.SMARTPOS) {
+            if (pinEntrySource == PinEntrySource.SMARTPOS) {
                 pinButtonLayout = Hashtable()
 
                 pinButtonLayout["key1"] = Rect(50, 400, 255, 550)
@@ -646,7 +655,7 @@ abstract class BaseDeviceFragment : BaseFragment()  {
         }
 
         override fun onReturnSetPinPadButtonsResult(p0: Boolean) {
-            val direction = ProcessTransactionFragmentDirections.actionProcessTransactionToPinPadFragment(amountStr)
+            val direction = ProcessTransactionFragmentDirections.navigateToPinPadFragment(amountStr)
             view!!.findNavController().navigate(direction)
         }
 
@@ -654,7 +663,7 @@ abstract class BaseDeviceFragment : BaseFragment()  {
             cancelVisibility.value = View.INVISIBLE
             if (currentFragment is PinPadFragment){
 
-                val direction = PinPadFragmentDirections.actionPinPadFragmentToProcessTransaction(amountStr)
+                val direction = PinPadFragmentDirections.navigateToProcessTransaction(amountStr)
                 view!!.findNavController().navigate(direction)
 
             }
@@ -720,6 +729,7 @@ abstract class BaseDeviceFragment : BaseFragment()  {
         }
 
         override fun onError(p0: BBDeviceController.Error?, errorStr: String?) {
+            cancelVisibility.value = View.VISIBLE
             toolbarTitle.value = errorStr
             cancelTitle.value = "Done"
             startAnimation.value = false

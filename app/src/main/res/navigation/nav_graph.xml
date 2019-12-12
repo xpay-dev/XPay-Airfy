@@ -107,7 +107,7 @@
         android:name="com.xpayworld.payment.ui.transaction.processTransaction.PinPadFragment"
         android:label="Enter PinCode">
         <action
-            android:id="@+id/action_pinPadFragment_to_processTransaction"
+            android:id="@+id/navigate_to_processTransaction"
             app:destination="@id/processTransactionFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

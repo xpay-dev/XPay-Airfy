@@ -56,7 +56,6 @@ class ProcessTransactionFragment : BaseDeviceFragment() {
             if (it) imageProcess().start() else imageProcess().stop()
         })
 
-        toolbarTitle.observe(this, Observer((activity as ToolbarDelegate)::setTitle))
 
         cancelVisibility.observe(this, Observer {
             btnCancel.visibility = it})
@@ -141,7 +140,7 @@ class ProcessTransactionFragment : BaseDeviceFragment() {
 
         // Device Transaction Result
         onTransactionResult.observe(this, Observer {
-            val direction = ProcessTransactionFragmentDirections.actionProcessTransactionToSignatureFragment(amountStr)
+            val direction = ProcessTransactionFragmentDirections.navigateToSignatureFragment(amountStr)
             if (it) view.findNavController().navigate(direction)
         })
 
@@ -168,11 +167,5 @@ class ProcessTransactionFragment : BaseDeviceFragment() {
         return img?.drawable as AnimationDrawable
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-        (activity as DrawerLocker).drawerEnabled(false)
-        (activity as AppCompatActivity).supportActionBar?.show()
-    }
+    
 }

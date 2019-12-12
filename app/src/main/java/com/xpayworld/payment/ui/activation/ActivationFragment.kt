@@ -112,7 +112,6 @@ class ActivationFragment : BaseFragment() {
         viewModel.loadingVisibility.observe(this, Observer{
             isShow -> if (isShow == true) showProgress() else hideProgress()
         })
-        viewModel.toolbarVisibility.observe(this, Observer{(activity as DrawerLocker).drawerEnabled(it)})
 
         viewModel.requestError.observe(this, Observer {
            if (it is Boolean) {
@@ -129,7 +128,7 @@ class ActivationFragment : BaseFragment() {
         })
 
         viewModel.navigateToEnterPin.observe(this , Observer {
-            val direction = ActivationFragmentDirections.actionActivationFragmentToEnterPinFragment()
+            val direction = ActivationFragmentDirections.navigateToEnterPinFragment()
             findNavController().navigate(direction)
         })
 

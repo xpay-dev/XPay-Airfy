@@ -15,23 +15,9 @@ import kotlinx.android.synthetic.main.toolbar_main.*
 import android.view.MotionEvent
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
-import android.content.pm.PackageManager
-import android.content.ComponentName
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.navigation.NavArgument
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.navArgs
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.google.gson.Gson
-import com.xpayworld.payment.ui.link.LinkFragment
-import com.xpayworld.payment.util.transaction
-import com.xpayworld.sdk.EntryPoint
 import com.xpayworld.sdk.XPAY_REQUEST
-import com.xpayworld.sdk.XpayRequest
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
@@ -112,7 +98,7 @@ class DashboardActivity : BaseActivity(), DrawerLocker, ToolbarDelegate {
             val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
-        shouldSetToFullScreen()
+        shouldFullScreen()
         return super.dispatchTouchEvent(ev)
     }
 

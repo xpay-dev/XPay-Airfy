@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_preference.recyclerView
 import kotlinx.android.synthetic.main.fragment_transaction_history.*
 import java.util.concurrent.TimeUnit
 
-class TransactionHistoryFragment : BaseFragment() {
+class  TransactionHistoryFragment : BaseFragment() {
 
     private val viewModel: TransactionHistoryViewModel by viewModels {
         InjectorUtil.provideTransactionHistoryViewModel(requireContext())

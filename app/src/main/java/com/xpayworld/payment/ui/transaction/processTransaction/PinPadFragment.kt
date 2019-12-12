@@ -18,8 +18,8 @@ class PinPadFragment : BaseDeviceFragment() {
 
 
     override fun initView(view: View, container: ViewGroup?) {
-        (activity as AppCompatActivity).supportActionBar?.hide()
-        (activity as DrawerLocker).drawerEnabled(true)
+//        (activity as AppCompatActivity).supportActionBar?.hide()
+//        (activity as DrawerLocker).drawerEnabled(true)
     }
 
     internal fun setStars(inputStars: String) {

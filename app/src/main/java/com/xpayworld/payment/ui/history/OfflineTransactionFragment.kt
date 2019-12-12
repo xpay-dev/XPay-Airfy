@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.xpayworld.payment.R
 import com.xpayworld.payment.databinding.FragmentTransactionHistoryBinding
 import com.xpayworld.payment.network.TransactionResponse
@@ -13,6 +14,7 @@ import com.xpayworld.payment.ui.base.kt.BaseFragment
 
 import com.xpayworld.payment.util.InjectorUtil
 import kotlinx.android.synthetic.main.fragment_transaction_history.*
+import java.util.concurrent.TimeUnit
 
 
 class OfflineTransactionFragment : BaseFragment(){
@@ -36,15 +38,18 @@ class OfflineTransactionFragment : BaseFragment(){
 
     override fun initView(view: View, container: ViewGroup?) {
         setHasOptionsMenu(true)
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
+
 
         viewModel.callOfflineTransaction()
 
         viewModel.transResponse.observe(this , Observer {
-            recyclerView.visibility = View.VISIBLE
             adapter.updatePostList(it)
-            tvStatus.visibility = View.GONE
+            adapter.notifyDataSetChanged()
         })
 
         viewModel.loadingVisibility.observe(this, Observer {

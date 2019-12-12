@@ -15,7 +15,7 @@ import com.xpayworld.payment.network.transaction.TransactionPurchase
 import com.xpayworld.payment.ui.base.kt.BaseFragment
 import com.xpayworld.payment.ui.dashboard.DrawerLocker
 import com.xpayworld.payment.ui.transaction.processTransaction.ARG_AMOUNT
-import com.xpayworld.payment.ui.transaction.receipt.ReceiptFragmentDirections
+import com.xpayworld.payment.ui.transaction.processTransaction.ARG_CURRENCY
 import com.xpayworld.payment.util.InjectorUtil
 import com.xpayworld.payment.util.formattedAmount
 import com.xpayworld.payment.util.paymentType
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_pay_amount.*
 
 class PayAmountFragment : BaseFragment(){
 
-    var amountStr = ""
     private  val viewModel : AmountViewModel by viewModels {
         InjectorUtil.provideAmountViewModelFactory(requireContext())
     }
@@ -41,28 +40,42 @@ class PayAmountFragment : BaseFragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            amountStr = it.getString(ARG_AMOUNT).toString()
-            viewModel.amountStr.value = amountStr
+        arguments?.takeIf {it.containsKey(ARG_AMOUNT).apply {
+
+            val  amountStr = it.getString(ARG_AMOUNT).toString()
+            val  currencyStr = it.get(ARG_CURRENCY).toString()
+
+            viewModel.amountStr.value =  amountStr
+            viewModel.btnPayEnabled.value = true
+            viewModel.displayCurrency.value = currencyStr
             viewModel.displayAmount.value = formattedAmount(amountStr)
+            }
         }
-        paymentType  = PaymentType.CREDIT(TransactionPurchase.Action.EMV)
+
     }
     override fun initView(view: View, container: ViewGroup?) {
         setHasOptionsMenu(true)
+
+
+        paymentType  = PaymentType.CREDIT(TransactionPurchase.Action.EMV)
         btnPay.setOnClickListener(viewModel.okClickListener)
+
         viewModel.deviceError.observe(this , Observer { msg ->
             showError(msg.first,msg.second)
         })
 
         viewModel.navigateToEnterPin.observe(this , Observer {
-            val directions = PayAmountFragmentDirections.actionPayFragmentToEnterPinFragment()
+            val directions = PayAmountFragmentDirections.navigateToEnterPinFragment()
             if (it) findNavController().navigate(directions)
         })
 
         viewModel.navigateToActivation.observe(this, Observer {
-            val directions = PayAmountFragmentDirections.actionPayFragmentToActivationFragment()
+            val directions = PayAmountFragmentDirections.navigateToActivationFragment()
             if (it) findNavController().navigate(directions)
+        })
+
+        viewModel.btnPayEnabled.observe( this , Observer {
+            btnPay.isEnabled = it
         })
     }
 
@@ -76,12 +89,13 @@ class PayAmountFragment : BaseFragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.actionOffline -> {
+
 //                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToOfflineTransactionFragment()
 //                view?.findNavController()?.navigate(direction)
             }
             R.id.actionDevice ->{
-//                val direction = PayAmountFragmentDirections.actionPayAmountFragmentToPreferenceFragment()
-//                view?.findNavController()?.navigate(direction)
+                val direction = PayAmountFragmentDirections.navigateToPreferenceFragment()
+                view?.findNavController()?.navigate(direction)
             }
         }
         return false

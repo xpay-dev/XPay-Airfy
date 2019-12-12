@@ -8,6 +8,7 @@ import android.os.Build.VERSION
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -87,7 +88,7 @@ abstract  class BaseActivity : AppCompatActivity() ,BaseFragment.CallBack{
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-       // shouldSetToFullScreen()
+        shouldFullScreen()
     }
 
     //@Override
@@ -127,7 +128,8 @@ abstract  class BaseActivity : AppCompatActivity() ,BaseFragment.CallBack{
         handler?.postDelayed(r, (5* 60 * 1000).toLong()) //for 5 minutes
     }
 
-    fun shouldSetToFullScreen(){
+
+    fun shouldFullScreen(){
         if (Build.VERSION_CODES.KITKAT <= VERSION.SDK_INT) {
             window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     // Set the content to appear under the system bars so that the
@@ -137,9 +139,14 @@ abstract  class BaseActivity : AppCompatActivity() ,BaseFragment.CallBack{
                     or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     // Hide the nav bar and status bar
                     or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    )
+
         }
     }
+
 
     fun requestPermission(){
         // Check permission

@@ -95,7 +95,6 @@ class ProcessTransactionViewModel : BaseViewModel() {
 
         if ((cardYear <= year) && cardMonth < month){
             requestError.value= -2
-
             return@callOfflineTransction
         }
 
@@ -107,13 +106,13 @@ class ProcessTransactionViewModel : BaseViewModel() {
                 currency = trans.currency,
                 currencyCode = trans.currencyCode,
                 isOffline =  true,
-                card = trans.card!!,
+                card = emv,
                 device = 7
         )
 
-        GlobalScope.launch {
-            InjectorUtil.getTransactionRepository(context).createTransaction(transRepository)
-        }
+
+        InjectorUtil.getTransactionRepository(context).createTransaction(transRepository)
+
 
         var xPayResponse = XpayResponse()
         xPayResponse.response = "0"

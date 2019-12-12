@@ -35,11 +35,6 @@ class EnterPinViewModel(private val context: Context) : BaseViewModel() {
         pinCode.value = ""
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        subscription.dispose()
-    }
-
     private fun onClickNumpad(v: View?) {
         if (pinCode.value!!.length >= 4) return
         pinCode.value += (v as Button).text.toString()

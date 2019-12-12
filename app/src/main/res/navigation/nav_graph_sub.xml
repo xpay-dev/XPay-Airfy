@@ -11,11 +11,33 @@
         android:label="Transaction"
         tools:layout="@layout/fragment_pay_amount" >
         <action
-            android:id="@+id/action_payFragment_to_activationFragment"
-            app:destination="@id/activationFragment" />
+            android:id="@+id/navigate_to_activationFragment"
+            app:destination="@id/activationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_payFragment_to_enterPinFragment"
-            app:destination="@id/enterPinFragment" />
+            android:id="@+id/navigate_to_enterPinFragment"
+            app:destination="@id/enterPinFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/navigate_to_preferenceFragment"
+            app:destination="@id/preferenceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/navigate_to_processTransactionFragment"
+            app:destination="@id/processTransactionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/offlineFragment"
@@ -28,16 +50,78 @@
         android:label="Enter Pin"
         tools:layout="@layout/fragment_enter_pin" >
         <action
-            android:id="@+id/action_enterPinFragment_to_payFragment"
-            app:destination="@id/payFragment" />
+            android:id="@+id/navigate_to_payFragment"
+            app:destination="@id/payFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/activationFragment"
         android:name="com.xpayworld.payment.ui.activation.ActivationFragment"
-        android:label="fragment_activation_code"
+        android:label="Activation"
         tools:layout="@layout/fragment_activation_code" >
         <action
-            android:id="@+id/action_activationFragment_to_enterPinFragment"
-            app:destination="@id/enterPinFragment" />
+            android:id="@+id/navigate_to_enterPinFragment"
+            app:destination="@id/enterPinFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/preferenceFragment"
+        android:name="com.xpayworld.payment.ui.preference.PreferenceFragment"
+        android:label="Preference"
+        tools:layout="@layout/fragment_preference" />
+    <fragment
+        android:id="@+id/processTransactionFragment"
+        android:name="com.xpayworld.payment.ui.transaction.processTransaction.ProcessTransactionFragment"
+        android:label="Process Transaction"
+        tools:layout="@layout/fragment_process_transaction" >
+        <action
+            android:id="@+id/navigate_to_pinPadFragment"
+            app:destination="@id/pinPadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/navigate_to_signatureFragment"
+            app:destination="@id/signatureFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="args_amount"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/pinPadFragment"
+        android:name="com.xpayworld.payment.ui.transaction.processTransaction.PinPadFragment"
+        android:label="Enter PinCode">
+        <action
+            android:id="@+id/navigate_to_processTransaction"
+            app:destination="@id/processTransactionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="args_amount"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/signatureFragment"
+        android:name="com.xpayworld.payment.ui.transaction.signature.SignatureFragment"
+        android:label="Signature"
+        tools:layout="@layout/fragment_signature">
+        <argument
+            android:name="args_amount"
+            app:argType="string" />
     </fragment>
 </navigation>
