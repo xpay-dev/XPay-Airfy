@@ -214,7 +214,6 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                     val trans = Transaction()
 
                     trans.card = txn.card
-
                     trans.orderId = txn.orderId
                     trans.isOffline = txn.isOffline
                     trans.amount = txn.amount

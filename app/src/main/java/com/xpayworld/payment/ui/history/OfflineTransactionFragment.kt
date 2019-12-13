@@ -39,12 +39,8 @@ class OfflineTransactionFragment : BaseFragment(){
     override fun initView(view: View, container: ViewGroup?) {
         setHasOptionsMenu(true)
 
-
-
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
-
-
         viewModel.callOfflineTransaction()
 
         viewModel.transResponse.observe(this , Observer {

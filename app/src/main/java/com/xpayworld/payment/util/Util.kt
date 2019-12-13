@@ -5,17 +5,26 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.util.Log
+import android.util.Patterns
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.xpayworld.payment.network.PosWsRequest
 import com.xpayworld.payment.network.TransactionResponse
 import com.xpayworld.payment.network.transaction.PaymentType
 import com.xpayworld.payment.network.transaction.Transaction
 import com.xpayworld.payment.network.updateApp.UpdateAppResponse
-import com.xpayworld.sdk.XpayResponse
+import org.acra.ACRA.LOG_TAG
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.DecimalFormat
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 
 // Global Variables
 
@@ -68,5 +77,43 @@ fun getDeviceIMEI(activity: Activity): String? {
     return deviceUniqueIdentifier
 }
 
+fun isEmailValid(email: String): Boolean {
+    val regExpn = ("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+            + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+            + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+            + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+            + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+            + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$")
+    val inputStr: CharSequence = email
+    val pattern: Pattern = Pattern.compile(regExpn, Pattern.CASE_INSENSITIVE)
+    val matcher: Matcher = pattern.matcher(inputStr)
+    return matcher.matches()
+}
 
+fun isValidEmail(target: CharSequence?): Boolean {
+    return if (target == null) false else Patterns.EMAIL_ADDRESS.matcher(target).matches()
+}
 
+fun isNetworkAvailable(context: Context?): Boolean {
+    val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+    val activeNetworkInfo = connectivityManager!!.activeNetworkInfo
+    return activeNetworkInfo != null
+}
+
+fun hasActiveInternetConnection(context: Context?): Boolean {
+    if (isNetworkAvailable(context)) {
+        try {
+            val urlc: HttpURLConnection = URL("http://www.google.com").openConnection() as HttpURLConnection
+            urlc.setRequestProperty("User-Agent", "Test")
+            urlc.setRequestProperty("Connection", "close")
+            urlc.setConnectTimeout(1500)
+            urlc.connect()
+            return urlc.responseCode === 200
+        } catch (e: IOException) {
+            Log.e(LOG_TAG, "Error checking internet connection", e)
+        }
+    } else {
+        Log.d(LOG_TAG, "No network available!")
+    }
+    return false
+}

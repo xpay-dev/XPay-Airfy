@@ -45,6 +45,9 @@ class PayAmountFragment : BaseFragment(){
             val  amountStr = it.getString(ARG_AMOUNT).toString()
             val  currencyStr = it.get(ARG_CURRENCY).toString()
 
+            amountStr ?: "0"
+            currencyStr?: "PHP"
+
             viewModel.amountStr.value =  amountStr
             viewModel.btnPayEnabled.value = true
             viewModel.displayCurrency.value = currencyStr
@@ -76,6 +79,10 @@ class PayAmountFragment : BaseFragment(){
 
         viewModel.btnPayEnabled.observe( this , Observer {
             btnPay.isEnabled = it
+        })
+
+        viewModel.loadingVisibility.observe(this, Observer{
+            isShow -> if (isShow == true) showProgress() else hideProgress()
         })
     }
 

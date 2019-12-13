@@ -26,6 +26,10 @@ class TransactionRepository private constructor(
         transDao.deleteTransaction(orderId= orderId)
     }
 
+    fun updateEmail(email: String, orderId: String){
+        transDao.updateEmail(email ,orderId = orderId )
+    }
+
     fun searchTransaction(orderId: String): List<Transaction>{
        return transDao.searchTransaction(orderId)
     }

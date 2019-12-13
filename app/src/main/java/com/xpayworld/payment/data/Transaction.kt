@@ -26,6 +26,7 @@ import retrofit2.http.Field
         var posAppVersion: String = "",
         var device: Int = 0,
         var signature: String = "",
+        var emailAddress: String = "",
         @Embedded
         var card : CardData)
  {
