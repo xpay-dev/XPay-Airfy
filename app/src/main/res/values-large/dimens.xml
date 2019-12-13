@@ -8,6 +8,8 @@
     <dimen name="btn_text">25sp</dimen>
     <dimen name="text_txn_currency">28sp</dimen>
     <dimen name="text_txn_amount">60sp</dimen>
+    <dimen name="text_signature_currency">30sp</dimen>
+    <dimen name="text_signature_amount">35sp</dimen>
     <dimen name="navigation_drawer_header_height">120dp</dimen>
     <dimen name="navigation_drawer_header_padding">16dp</dimen>
     <dimen name="navigation_drawer_image_width">100dp</dimen>

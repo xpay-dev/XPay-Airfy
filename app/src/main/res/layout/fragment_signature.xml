@@ -47,7 +47,7 @@
             android:fontFamily="@font/corsa_grotesk_regular"
             android:text="PHP"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_txn_currency"
+            android:textSize="@dimen/text_signature_currency"
             app:layout_constraintStart_toStartOf="@+id/textView29"
             app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -75,7 +75,7 @@
             android:fontFamily="@font/corsa_grotesk_regular"
             android:text="1,2000"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_all"
+            android:textSize="@dimen/text_signature_amount"
             app:layout_constraintBottom_toBottomOf="@+id/textView28"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"

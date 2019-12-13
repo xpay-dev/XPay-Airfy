@@ -42,7 +42,7 @@ class AmountViewModel(context: Context) : BaseViewModel() {
         POS_REQUEST = PosWsRequest(context)
         isActivated()
         val pinEntered = isPinEntered()
-        if (pinEntered) {
+        if (!pinEntered) {
             hasInternetConnection(context)
         }
     }
@@ -61,12 +61,12 @@ class AmountViewModel(context: Context) : BaseViewModel() {
     }
 
     private fun isActivated() {
-        val isValid = !sharedPref.isEmpty(ACTIVATION_KEY)
+        val isValid = sharedPref.isEmpty(ACTIVATION_KEY)
         navigateToActivation.value = isValid
     }
 
     private fun isPinEntered(): Boolean {
-        val hasPin = !sharedPref.isEmpty(ACTIVATION_KEY) && !sharedPref.isEmpty(PIN_LOGIN)
+        val hasPin = sharedPref.isEmpty(ACTIVATION_KEY) || sharedPref.isEmpty(PIN_LOGIN)
         navigateToEnterPin.value = hasPin
         return  hasPin
     }
