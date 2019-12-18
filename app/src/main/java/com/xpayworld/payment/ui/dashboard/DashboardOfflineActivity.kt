@@ -20,6 +20,7 @@ import com.xpayworld.payment.databinding.ActivityDashboardOfflineBinding
 import com.xpayworld.payment.ui.base.kt.BaseActivity
 import com.xpayworld.payment.ui.transaction.processTransaction.ARG_AMOUNT
 import com.xpayworld.payment.ui.transaction.processTransaction.ARG_CURRENCY
+import com.xpayworld.payment.util.IS_SDK
 import com.xpayworld.payment.util.IS_TRANSACTION_OFFLINE
 import com.xpayworld.payment.util.externalPackageName
 import com.xpayworld.payment.util.transaction
@@ -119,7 +120,7 @@ class DashboardOfflineActivity : BaseActivity() {
         transaction.cardCaptureMethod = data.cardCaptureMethod
         transaction.currency = data.currency
         transaction.currencyCode = data.currencyCode
-
+        IS_SDK = true
         val strAmount = "${data.amountPurchase}".replace(".", "")
         val graph =  navController.graph
         val b = Bundle()

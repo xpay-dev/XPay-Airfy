@@ -62,7 +62,6 @@ class EnterPinFragment : BaseFragment() {
             viewModel.callEnterPinAPI()
         }
 
-          //InjectorUtil.getTransactionRepository(requireContext()).deleteAllTransaction()
         viewModel.pinCode
                 .observe(this, Observer {
                     shouldUpdateCodeImage(it)
