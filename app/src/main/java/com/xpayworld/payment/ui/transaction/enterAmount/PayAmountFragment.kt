@@ -42,11 +42,12 @@ class PayAmountFragment : BaseFragment(){
         super.onCreate(savedInstanceState)
         arguments?.takeIf {it.containsKey(ARG_AMOUNT).apply {
 
-            val  amountStr = it.getString(ARG_AMOUNT).toString()
-            val  currencyStr = it.get(ARG_CURRENCY).toString()
+            var amountStr = it.getString(ARG_AMOUNT).toString()
+            var currencyStr = it.get(ARG_CURRENCY).toString()
+
 
             amountStr ?: "0"
-            currencyStr?: "PHP"
+            currencyStr ?: "PHP"
 
             viewModel.amountStr.value =  amountStr
             viewModel.btnPayEnabled.value = true
