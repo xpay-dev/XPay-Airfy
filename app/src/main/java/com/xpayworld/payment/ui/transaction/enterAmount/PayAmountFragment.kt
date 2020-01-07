@@ -69,7 +69,7 @@ class PayAmountFragment : BaseFragment(){
 
         viewModel.navigateToEnterPin.observe(this , Observer {
             val directions = PayAmountFragmentDirections.navigateToEnterPinFragment()
-            if (it) findNavController().navigate(directions)
+             if (it) findNavController().navigate(directions)
         })
 
         viewModel.navigateToActivation.observe(this, Observer {

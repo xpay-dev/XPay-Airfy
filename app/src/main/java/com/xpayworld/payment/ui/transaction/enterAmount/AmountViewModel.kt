@@ -29,7 +29,6 @@ class AmountViewModel(context: Context) : BaseViewModel() {
     val deviceError: MutableLiveData<Pair<String, String>> = MutableLiveData()
     val btnPayEnabled: MutableLiveData<Boolean> = MutableLiveData()
     private lateinit var subscription: Disposable
-    //GG7C-BY7B-JF5A-HNN7
     val amountStr: MutableLiveData<String> = MutableLiveData()
     val navigateToEnterPin: MutableLiveData<Boolean> = MutableLiveData()
     val navigateToActivation: MutableLiveData<Boolean> = MutableLiveData()
@@ -40,9 +39,11 @@ class AmountViewModel(context: Context) : BaseViewModel() {
         displayAmount.value = "0.00"
         btnPayEnabled.value = false
         POS_REQUEST = PosWsRequest(context)
+
         isActivated()
+
         val pinEntered = isPinEntered()
-        if (!pinEntered) {
+        if (pinEntered) {
             hasInternetConnection(context)
         }
     }
@@ -66,7 +67,7 @@ class AmountViewModel(context: Context) : BaseViewModel() {
     }
 
     private fun isPinEntered(): Boolean {
-        val hasPin = sharedPref.isEmpty(ACTIVATION_KEY) || sharedPref.isEmpty(PIN_LOGIN)
+        val hasPin = !sharedPref.isEmpty(ACTIVATION_KEY) || !sharedPref.isEmpty(PIN_LOGIN)
         navigateToEnterPin.value = hasPin
         return  hasPin
     }
