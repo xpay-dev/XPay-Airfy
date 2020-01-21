@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.xpayworld.payment.R
@@ -51,7 +52,7 @@ class EnterPinFragment : BaseFragment() {
 
     override fun initView(view: View, container: ViewGroup?) {
 
-
+        (activity as AppCompatActivity).supportActionBar?.hide()
         // Input
         pinCodeImgArr = listOf(img1, img2, img3, img4)
         numpad = listOf(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn0)

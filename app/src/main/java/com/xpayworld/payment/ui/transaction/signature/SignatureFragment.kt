@@ -51,15 +51,6 @@ class SignatureFragment : BaseFragment() {
 
         btnSubmit.setOnClickListener {
 
-            if (edEmailAddress.text.isEmpty()){
-                edEmailAddress.error = "Email address is required"
-                return@setOnClickListener
-            }
-
-            if (!isValidEmail(edEmailAddress.text.toString())){
-                edEmailAddress.error = "Invalid email address"
-                return@setOnClickListener
-            }
 
             if (!vwSignature.isBitmapEmpty) {
             val sign = vwSignature.signatureBitmap
@@ -89,7 +80,6 @@ class SignatureFragment : BaseFragment() {
     fun actionTransactionOffline(){
         val txnDao = InjectorUtil.getTransactionRepository(requireContext())
         txnDao.updateSignatureTransaction(imageStr, transaction.orderId)
-        txnDao.updateEmail(edEmailAddress.text.toString() , transaction.orderId)
         val i = Intent()
         i.putExtra(XPAY_RESPONSE, SDK_XPAY_RESPONSE)
         activity!!.setResult(Activity.RESULT_OK,i)

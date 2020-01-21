@@ -42,7 +42,7 @@ var SDK_XPAY_RESPONSE = ""
 fun formattedAmount(amount : String) : String {
     var formatedAmount = ""
 
-    if (amount == "" || amount.run { isNullOrBlank() }) {return  "0.00"}
+    if (amount == "" || amount == "null"|| amount.run { isNullOrBlank() }) {return  "0.00"}
 
     val len = amount.length
     val df = DecimalFormat("###,###,##0.00")
