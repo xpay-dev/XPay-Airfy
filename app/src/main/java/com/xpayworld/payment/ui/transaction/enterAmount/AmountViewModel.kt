@@ -10,6 +10,9 @@ import com.xpayworld.payment.network.TransactionResponse
 import com.xpayworld.payment.network.login.Login
 import com.xpayworld.payment.network.login.LoginApi
 import com.xpayworld.payment.network.login.LoginRequest
+import com.xpayworld.payment.network.signature.Signature
+import com.xpayworld.payment.network.signature.SignatureApi
+import com.xpayworld.payment.network.signature.SignatureRequest
 import com.xpayworld.payment.network.transaction.*
 import com.xpayworld.payment.ui.history.DispatchGroup
 import com.xpayworld.payment.ui.history.convertLongToTime
@@ -123,7 +126,7 @@ class AmountViewModel(context: Context) : BaseViewModel() {
                         })
     }
 
-    private fun callTransactionAPI( callBack: ((Boolean) -> Unit)? = null) {
+    private fun callTransactionAPI( transaction : Transaction, callBack: ((Boolean) -> Unit)? = null) {
         var txnResponse: Single<Response<TransactionResult>>? = null
         val api = RetrofitClient().getRetrofit().create(TransactionApi::class.java)
 
@@ -159,11 +162,13 @@ class AmountViewModel(context: Context) : BaseViewModel() {
                     }
                     val body = if ( result.body()?.resultEmv != null) result.body()?.resultEmv else  result.body()?.resultSwipe
                     val hasError = body?.result?.errNumber != 0.0
+                    if (!hasError){
+                        val sign =  transaction.signature
+                        callSignatureAPI(imgStr = sign , imageLen = "${sign.length}",transNumber = body!!.transNumber!!)
+                    }
                     callBack?.invoke(!hasError)
-                    subscription.dispose()
                 }, {
                     callBack?.invoke(false)
-                    subscription.dispose()
                 })
     }
 
@@ -175,7 +180,7 @@ class AmountViewModel(context: Context) : BaseViewModel() {
         for (txn in txnDao.getTransaction()) {
             if (!txn.isSync){
                 dispatch.enter()
-                txnDao.updateTransaction(true,txn.orderId)
+                txnDao.updateTransaction("",true,txn.orderId)
                 val trans = Transaction()
 
                 trans.card = txn.card
@@ -185,6 +190,7 @@ class AmountViewModel(context: Context) : BaseViewModel() {
                 trans.currencyCode = txn.currencyCode
                 trans.currency = txn.currency
                 trans.timestamp = txn.timestamp
+                trans.signature = txn.signature
 
 
                 if (trans.card?.posEntry == 90) {
@@ -196,11 +202,9 @@ class AmountViewModel(context: Context) : BaseViewModel() {
                 trans.device = txn.device
                 trans.deviceModelVersion = txn.deviceModelVersion
 
-                transaction = trans
-
-                callTransactionAPI(callBack = {isSuccess ->
+                callTransactionAPI(trans ,callBack = {isSuccess ->
                     if (!isSuccess) {
-                        txnDao.updateTransaction(false, trans.orderId)
+                        txnDao.updateTransaction("Failed to upload",false, trans.orderId)
                     }
                     dispatch.leave()
                 })
@@ -209,6 +213,24 @@ class AmountViewModel(context: Context) : BaseViewModel() {
         dispatch.notify {
             loadingVisibility.value = false
         }
+    }
+
+    fun callSignatureAPI(imgStr: String ,imageLen : String , transNumber : String){
+        val  sign = Signature()
+        sign.imageStr = imgStr
+        sign.imageLenStr = imageLen
+        sign.mobileAppTransType = 1
+        sign.transNumber = transNumber
+
+        val signRequest = SignatureRequest()
+        signRequest.request = sign
+
+
+        val api = RetrofitClient().getRetrofit().create(SignatureApi::class.java)
+        subscription = api.signature(signRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result -> })
     }
 
 }

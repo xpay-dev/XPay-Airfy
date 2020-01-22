@@ -18,8 +18,8 @@ interface  TransactionDao {
     @Query("DELETE FROM `transaction` WHERE orderId =:orderId")
     fun deleteTransaction(orderId: String)
 
-    @Query("UPDATE `transaction` SET isSync = :isSync WHERE orderId = :orderId")
-    fun updateSync(isSync: Boolean , orderId: String)
+    @Query("UPDATE `transaction` SET transType = :status ,isSync = :isSync  WHERE orderId = :orderId")
+    fun updateSync(status : String,isSync: Boolean , orderId: String)
 
     @Query("UPDATE `transaction` SET signature = :sign  WHERE orderId = :orderId")
     fun updateSignature(sign: String , orderId: String)

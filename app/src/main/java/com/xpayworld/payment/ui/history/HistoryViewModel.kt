@@ -12,6 +12,7 @@ class HistoryViewModel  : ViewModel(){
     private  val txnAmount = MutableLiveData<String>()
     private  val txnTimestamp = MutableLiveData<String>()
     private  val txnCurrency = MutableLiveData<String>()
+    private  val txnStatus = MutableLiveData<Boolean>()
 
     fun bind(history : TransactionResponse){
         txnAmount.value = history.total
@@ -19,6 +20,7 @@ class HistoryViewModel  : ViewModel(){
         txnType.value = history.transType
         txnTimestamp.value = history.timestamp
         txnCurrency.value = history.currency
+        txnStatus.value = (history.transType != "Failed to upload")
     }
 
     fun getTxnNumber(): MutableLiveData<String>{
@@ -39,6 +41,10 @@ class HistoryViewModel  : ViewModel(){
 
     fun getTxnCurrency(): MutableLiveData<String>{
         return  txnCurrency
+    }
+
+    fun  getTxnStatus(): MutableLiveData<Boolean>{
+        return  txnStatus
     }
 
 }

@@ -46,8 +46,13 @@ class PayAmountFragment : BaseFragment(){
             var currencyStr = it.get(ARG_CURRENCY).toString()
 
 
-            amountStr ?: "0"
-            currencyStr ?: "PHP"
+            if (currencyStr == "null") {
+                currencyStr = "$"
+            }
+
+            if (amountStr == "null"){
+                amountStr = "0.00"
+            }
 
             viewModel.amountStr.value =  amountStr
             viewModel.btnPayEnabled.value = true

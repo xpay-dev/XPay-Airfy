@@ -14,8 +14,8 @@ class TransactionRepository private constructor(
         transDao.deleteAllTransaction()
     }
 
-    fun updateTransaction(isSync : Boolean , orderId : String){
-        transDao.updateSync(isSync = isSync, orderId =  orderId)
+    fun updateTransaction(status : String,isSync : Boolean , orderId : String){
+        transDao.updateSync(status= status,isSync = isSync, orderId =  orderId)
     }
 
     fun updateSignatureTransaction(sign : String , orderId: String){

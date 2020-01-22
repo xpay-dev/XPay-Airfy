@@ -146,7 +146,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                         return@forEach
                     }
                     val data = TransactionResponse()
-                    data.transType = "Offline"
+                    data.transType = it.transType
                     data.timestamp = convertLongToTime(it.timestamp)
                     data.total = "${it.amount}"
                     data.currency = it.currency
@@ -210,7 +210,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
         for (txn in txnDao.getTransaction()) {
                 if (!txn.isSync){
                     dispatch.enter()
-                    txnDao.updateTransaction(true,txn.orderId)
+                    txnDao.updateTransaction("",true,txn.orderId)
                     val trans = Transaction()
 
                     trans.card = txn.card
@@ -235,7 +235,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
 
                     callTransactionAPI(callBack = {isSuccess ->
                         if (!isSuccess) {
-                            txnDao.updateTransaction(false, trans.orderId)
+                            txnDao.updateTransaction("Failed to upload",false, trans.orderId)
                         }
                         dispatch.leave()
                     })

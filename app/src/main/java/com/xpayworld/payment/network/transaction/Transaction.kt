@@ -17,6 +17,7 @@ class Transaction {
     var posAppVersion = ""
     var timestamp : Long = 0L
     var cardCaptureMethod = 5
+    var signature = ""
     var device = 0
     var card : CardData? = null
 }
