@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.xpayworld.payment.network.PosWsResponse
 import com.xpayworld.payment.network.RetrofitClient
 import com.xpayworld.payment.network.TransactionResponse
+import com.xpayworld.payment.network.signature.Signature
+import com.xpayworld.payment.network.signature.SignatureApi
+import com.xpayworld.payment.network.signature.SignatureRequest
 import com.xpayworld.payment.network.transLookUp.*
 import com.xpayworld.payment.network.transaction.*
 import com.xpayworld.payment.util.*
@@ -157,7 +160,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
         transResponse.value = trans
     }
 
-   private fun callTransactionAPI( callBack: ((Boolean) -> Unit)? = null) {
+   private fun callTransactionAPI( transaction : Transaction,  callBack: ((Boolean) -> Unit)? = null) {
         var txnResponse: Single<Response<TransactionResult>>? = null
         val api = RetrofitClient().getRetrofit().create(TransactionApi::class.java)
 
@@ -186,15 +189,18 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                 .doOnSubscribe {loadingVisibility.value = true }
                 .doAfterTerminate {loadingVisibility.value = false }
                 .subscribe({ result ->
+
                     if (!result.isSuccessful) {
-                        subscription.dispose()
                         callBack?.invoke(false)
                         return@subscribe
                     }
                     val body = if ( result.body()?.resultEmv != null) result.body()?.resultEmv else  result.body()?.resultSwipe
                     val hasError = body?.result?.errNumber != 0.0
+                    if (!hasError){
+                        val sign =  transaction.signature
+                        callSignatureAPI(imgStr = sign , imageLen = "${sign.length}",transNumber = body!!.transNumber!!)
+                    }
                     callBack?.invoke(!hasError)
-                    subscription.dispose()
                 }, {
                     callBack?.invoke(false)
                     subscription.dispose()
@@ -220,6 +226,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                     trans.currencyCode = txn.currencyCode
                     trans.currency = txn.currency
                     trans.timestamp = txn.timestamp
+                    trans.signature = txn.signature
 
 
                     if (trans.card?.posEntry == 90) {
@@ -231,9 +238,7 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                     trans.device = txn.device
                     trans.deviceModelVersion = txn.deviceModelVersion
 
-                    transaction = trans
-
-                    callTransactionAPI(callBack = {isSuccess ->
+                    callTransactionAPI(transaction =  trans,callBack = { isSuccess ->
                         if (!isSuccess) {
                             txnDao.updateTransaction("Failed to upload",false, trans.orderId)
                         }
@@ -246,6 +251,24 @@ class TransactionHistoryViewModel(val context: Context): BaseViewModel(){
                 callOfflineTransaction()
             }
     }
+    fun callSignatureAPI(imgStr: String ,imageLen : String , transNumber : String){
+        val  sign = Signature()
+        sign.imageStr = imgStr
+        sign.imageLenStr = imageLen
+        sign.mobileAppTransType = 1
+        sign.transNumber = transNumber
+
+        val signRequest = SignatureRequest()
+        signRequest.request = sign
+
+
+        val api = RetrofitClient().getRetrofit().create(SignatureApi::class.java)
+        subscription = api.signature(signRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result -> })
+    }
+
 }
 
 fun convertLongToTime(time: Long): String {

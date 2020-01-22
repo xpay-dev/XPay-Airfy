@@ -155,8 +155,8 @@ class AmountViewModel(context: Context) : BaseViewModel() {
                 .doOnSubscribe {loadingVisibility.value = true }
                 .doAfterTerminate {loadingVisibility.value = false }
                 .subscribe({ result ->
+
                     if (!result.isSuccessful) {
-                        subscription.dispose()
                         callBack?.invoke(false)
                         return@subscribe
                     }

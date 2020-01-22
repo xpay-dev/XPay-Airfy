@@ -51,7 +51,7 @@ class PayAmountFragment : BaseFragment(){
             }
 
             if (amountStr == "null"){
-                amountStr = "0.00"
+                amountStr = "0"
             }
 
             viewModel.amountStr.value =  amountStr

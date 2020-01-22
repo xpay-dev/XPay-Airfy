@@ -41,26 +41,7 @@ abstract  class BaseActivity : AppCompatActivity() ,BaseFragment.CallBack{
         initView()
         requestPermission()
 
-        handler = Handler()
-        r = Runnable {
 
-            navHostFragment =  supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
-            currentFragment =  navHostFragment.childFragmentManager.fragments[0]
-
-            userInteraction?.userInteractionListener()
-
-            if ((currentFragment !is ActivationFragment && currentFragment !is EnterPinFragment) ){
-                ErrorDialog().showAlert(
-                        "Session Time out",
-                        "Sorry , your session timed out after a long time of inactivity, Please Log in again",
-                        {
-                            findNavController(R.id.nav_host_fragment).navigate(R.id.logoutFragment)
-                        },
-                        currentFragment)
-            }
-
-        }
-        startHandler()
     }
 
     fun showProgress() {
